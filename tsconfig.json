@@ -7,7 +7,9 @@
             "@screens/*": ["src/screens/*"],
             "@constants/*": ["src/constants/*"],
             "@domain/*": ["src/domain/*"],
-            "@types/*": ["src/types/*"]
+            "@types/*": ["src/types/*"],
+            "@store/*": ["src/store/*"],
+            "@hoc/*": ["src/hoc/*"]
         },
         "moduleSuffixes": [".android", ".ios", ".native", ""]
     }
