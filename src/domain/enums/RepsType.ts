@@ -1,6 +1,8 @@
 enum RepsType {
     QUANTITY,
-    DURATION,
+    DISTANCE,
+    DURATION_SEC,
+    DURATION_MIN
 }
 
 export default RepsType;

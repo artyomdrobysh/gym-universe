@@ -9,6 +9,7 @@ import shoulders from "../assets/images/muscle-groups/shoulders.png";
 import frontDeltaShoulders from "../assets/images/muscle-groups/front-delta-shoulders.png";
 import middleDeltaShoulders from "../assets/images/muscle-groups/middle-delta-shoulders.png";
 import backDeltaShoulders from "../assets/images/muscle-groups/back-delta-shoulders.png";
+import brachialis from "../assets/images/muscle-groups/brachialis.png";
 
 import back from "../assets/images/muscle-groups/back.png";
 import lowerTrapeziusMuscle from "../assets/images/muscle-groups/lower-trapezius-muscle.png";
@@ -27,6 +28,15 @@ import semitendinosusMuscle from "../assets/images/muscle-groups/semitendinosus-
 
 import abs from "../assets/images/muscle-groups/abs.png";
 import rectusAbdominisMuscle from "../assets/images/muscle-groups/rectus-abdominis-muscle.png";
+import externalObliqueMuscle from "../assets/images/muscle-groups/external-oblique-muscle.png";
+import internalObliqueMuscle from "../assets/images/muscle-groups/internal-oblique-muscle.png";
+import quadriceps from "../assets/images/muscle-groups/quadriceps.png";
+import bicepsFemoris from "../assets/images/muscle-groups/biceps-femoris.png";
+import calfMuscle from "../assets/images/muscle-groups/calf-muscle.png";
+import gluteusMaximusMuscle from "../assets/images/muscle-groups/gluteus-maximus-muscle.png";
+import gluteusMediusMuscle from "../assets/images/muscle-groups/gluteus-medius-muscle.png";
+
+import cardio from "../assets/images/muscle-groups/cardio.png";
 
 export const MUSCLE_GROUPS: MuscleGroup[] = [
     {
@@ -99,6 +109,18 @@ export const MUSCLE_GROUPS: MuscleGroup[] = [
             childrenExists: true,
         },
         image: middleDeltaShoulders,
+        childrenExists: false,
+    },
+    {
+        id: 23,
+        name: "Брахиалис",
+        parent: {
+            id: 5,
+            name: "Плечи",
+            image: shoulders,
+            childrenExists: true,
+        },
+        image: brachialis,
         childrenExists: false,
     },
     {
@@ -240,6 +262,66 @@ export const MUSCLE_GROUPS: MuscleGroup[] = [
         childrenExists: false,
     },
     {
+        id: 27,
+        name: "Квадрицепс",
+        parent: {
+            id: 19,
+            name: "Ноги",
+            image: legs,
+            childrenExists: true,
+        },
+        image: quadriceps,
+        childrenExists: false,
+    },
+    {
+        id: 28,
+        name: "Двуглавая мышца бедра",
+        parent: {
+            id: 19,
+            name: "Ноги",
+            image: legs,
+            childrenExists: true,
+        },
+        image: bicepsFemoris,
+        childrenExists: false,
+    },
+    {
+        id: 29,
+        name: "Икроножная мышца",
+        parent: {
+            id: 19,
+            name: "Ноги",
+            image: legs,
+            childrenExists: true,
+        },
+        image: calfMuscle,
+        childrenExists: false,
+    },
+    {
+        id: 30,
+        name: "Большая ягодичная мышца",
+        parent: {
+            id: 19,
+            name: "Ноги",
+            image: legs,
+            childrenExists: true,
+        },
+        image: gluteusMaximusMuscle,
+        childrenExists: false,
+    },
+    {
+        id: 31,
+        name: "Средняя ягодичная мышца",
+        parent: {
+            id: 19,
+            name: "Ноги",
+            image: legs,
+            childrenExists: true,
+        },
+        image: gluteusMediusMuscle,
+        childrenExists: false,
+    },
+    {
         id: 21,
         name: "Пресс",
         image: abs,
@@ -256,6 +338,36 @@ export const MUSCLE_GROUPS: MuscleGroup[] = [
         },
         image: rectusAbdominisMuscle,
         childrenExists: false,
+    },
+    {
+        id: 25,
+        name: "Наружная косая мышца живота",
+        parent: {
+            id: 21,
+            name: "Пресс",
+            image: abs,
+            childrenExists: true,
+        },
+        image: externalObliqueMuscle,
+        childrenExists: false,
+    },
+    {
+        id: 26,
+        name: "Внутренняя косая мышца живота",
+        parent: {
+            id: 21,
+            name: "Пресс",
+            image: abs,
+            childrenExists: true,
+        },
+        image: internalObliqueMuscle,
+        childrenExists: false,
+    },
+    {
+        id: 24,
+        name: "Кардио",
+        childrenExists: false,
+        image: cardio,
     },
 ];
 

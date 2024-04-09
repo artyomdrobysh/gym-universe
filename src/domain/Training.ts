@@ -1,22 +1,20 @@
-import Exercise from "./Exercise";
+export type ExerciseSet = {
+    orderNumber: number;
+    loadAmount?: number;
+    reps: number;
+};
 
-import MeasureUnit from "./enums/MeasureUnit";
-import RepsType from "./enums/RepsType";
+export type TrainingExercise = {
+    exerciseId: number;
+    exerciseImage: string;
+    sets: ExerciseSet[];
+};
 
 type Training = {
-    day: Date; // todo maybe define just day ?
+    id: number;
     start: Date; // todo maybe define just time ?
     finish: Date; // todo maybe define just time ?
-    exercises: (Exercise & {
-        sets: {
-            load?: {
-                amount: number;
-                measureUnit: MeasureUnit;
-            };
-            reps: number;
-            repsType: RepsType;
-        }[];
-    })[];
+    exercises: TrainingExercise[];
 };
 
 export default Training;

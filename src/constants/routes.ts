@@ -1,21 +1,23 @@
 export type MuscleGroupsParams = {
-    parentId?: number;
-    name?: string;
+    parentId: number;
+    name: string;
 };
 
 export type ExercisesParams = {
     muscleGroupId: number;
 };
 
-export type ExerciseDetailsParams = {
-    id: number;
+export type DoExerciseParams = {
+    exerciseId: number;
 };
 
 type ROUTES = {
     Home: undefined;
-    MuscleGroups: MuscleGroupsParams;
+    AddTraining: undefined;
+    MuscleGroups: MuscleGroupsParams | undefined;
     Exercises: ExercisesParams;
-    ExerciseDetails: ExerciseDetailsParams;
+    DoExercise: DoExerciseParams;
+    TrainingsHistory: undefined;
 };
 
 export default ROUTES;

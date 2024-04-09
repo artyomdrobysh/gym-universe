@@ -23,6 +23,8 @@ module.exports = {
                     "@types": "./src/types",
                     "@store": "./src/store",
                     "@hoc": "./src/hoc",
+                    "@hooks": "./src/hooks",
+                    "@mock": "./src/mock",
                 },
             },
         ],

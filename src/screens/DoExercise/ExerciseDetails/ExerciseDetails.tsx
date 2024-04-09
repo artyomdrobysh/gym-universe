@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
     Animated,
     ImageBackground,
@@ -7,64 +7,16 @@ import {
     View,
     useWindowDimensions,
 } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import Loader from "@components/Loader";
-
-import Exercise from "@domain/Exercise";
-
-import ROUTES from "@constants/routes";
-
-import { getById } from "@store/exercises";
-
+import { Props } from "./types";
 import styles from "./styles";
 
-export default function ExerciseDetails({
-    route: {
-        params: { id },
-    },
-}: NativeStackScreenProps<ROUTES, "ExerciseDetails">) {
-    const [exercise, setExercise] = useState<Exercise | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string>("");
-
+export default function ExerciseDetails({ exercise }: Props) {
     const animationScrollX = useRef(new Animated.Value(0));
 
     const { width: windowWidth } = useWindowDimensions();
 
     const scrollX = animationScrollX.current;
-
-    useEffect(() => {
-        let mounted = true;
-        getById(id)
-            .then(res => {
-                if (mounted) {
-                    if (res) {
-                        setExercise(res);
-                    } else {
-                        setError("нет такого упражнения");
-                    }
-                    setLoading(false);
-                }
-            })
-            .catch(err => {
-                if (mounted) {
-                    setError(err.message());
-                    setLoading(false);
-                }
-            });
-        return () => {
-            mounted = false;
-        };
-    }, [id]);
-
-    if (loading) {
-        return <Loader />;
-    }
-
-    if (error || !exercise) {
-        throw new Error(error);
-    }
 
     const { name, images } = exercise;
 

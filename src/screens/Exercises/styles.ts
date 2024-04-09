@@ -4,5 +4,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         paddingVertical: 20,
+        gap: 10,
     },
 });

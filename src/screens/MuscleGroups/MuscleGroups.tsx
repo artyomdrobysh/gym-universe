@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import ImageButton from "@components/ImageButton";
+import Loader from "@components/Loader";
 
 import MuscleGroup from "@domain/MuscleGroup";
 
-import { getAllByParent } from "@store/muscle-group";
+import { getAllByParent } from "@mock/muscle-group";
 
 import ROUTES from "@constants/routes";
 
@@ -18,25 +19,34 @@ export default function MuscleGroups({
 }: NativeStackScreenProps<ROUTES, "MuscleGroups">) {
     const [muscleGroups, setMuscleGroups] = useState<MuscleGroup[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    // todo add error
+    const [error, setError] = useState<string>("");
 
     useEffect(() => {
-        let mounted = true;
+        let isMounted: boolean = true;
         getAllByParent(params?.parentId).then(res => {
-            if (mounted) {
+            if (isMounted) {
                 setMuscleGroups(res);
                 setLoading(false);
             }
+        }).catch(err => {
+            if (isMounted) {
+                setError(err.message);
+                setLoading(false);
+            }
         });
-        // todo add catch
 
         return () => {
-            mounted = false;
+            isMounted = false;
+            console.log("unmount", params?.parentId);
         };
     }, [params?.parentId]);
 
+    if (error) {
+        throw new Error(error);
+    }
+
     if (loading) {
-        return <ActivityIndicator size="large" />;
+        return <Loader />;
     }
 
     return (
@@ -56,9 +66,9 @@ export default function MuscleGroups({
         return () =>
             childrenExists
                 ? navigation.push("MuscleGroups", {
-                      parentId: id,
-                      name,
-                  })
+                    parentId: id,
+                    name,
+                })
                 : navigation.navigate("Exercises", { muscleGroupId: id });
     }
 }

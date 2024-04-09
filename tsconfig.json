@@ -9,7 +9,9 @@
             "@domain/*": ["src/domain/*"],
             "@types/*": ["src/types/*"],
             "@store/*": ["src/store/*"],
-            "@hoc/*": ["src/hoc/*"]
+            "@hoc/*": ["src/hoc/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@mock/*": ["src/mock/*"]
         },
         "moduleSuffixes": [".android", ".ios", ".native", ""]
     }

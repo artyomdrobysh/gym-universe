@@ -6,9 +6,13 @@ import ImageButton from "@components/ImageButton";
 
 import Exercise from "@domain/Exercise";
 
-import { getAllByMuscleGroup } from "@store/exercises";
+import { getAllByMuscleGroup } from "@mock/exercises";
 
 import ROUTES from "@constants/routes";
+
+import { useAppSelector } from "@hooks/redux";
+
+import { selectExercises } from "@store/slices/training";
 
 import styles from "./styles";
 
@@ -22,33 +26,38 @@ export default function Exercises({
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
 
+    const selectedExercises = useAppSelector(selectExercises);
+
     useEffect(() => {
-        let mounted = true;
-        getAllByMuscleGroup(muscleGroupId)
+        let isMounted: boolean = true;
+        getAllByMuscleGroup(
+            muscleGroupId,
+            selectedExercises.map(e => e.exerciseId),
+        )
             .then(res => {
-                if (mounted) {
+                if (isMounted) {
                     setExercises(res);
                     setLoading(false);
                 }
             })
             .catch(err => {
-                if (mounted) {
+                if (isMounted) {
                     setError(err.message());
                     setLoading(false);
                 }
             });
 
         return () => {
-            mounted = false;
+            isMounted = false;
         };
-    }, [muscleGroupId]);
+    }, [muscleGroupId, selectedExercises]);
 
     if (loading) {
         return <ActivityIndicator size="large" />;
     }
 
     if (error) {
-        return new Error(error);
+        throw new Error(error);
     }
 
     return (
@@ -59,7 +68,7 @@ export default function Exercises({
                     text={name}
                     image={images.sort((a, b) => b.index - a.index)[0].content}
                     onPress={() =>
-                        navigation.navigate("ExerciseDetails", { id })
+                        navigation.navigate("DoExercise", { exerciseId: id })
                     }
                 />
             ))}
