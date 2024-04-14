@@ -37,7 +37,6 @@ export default function MuscleGroups({
 
         return () => {
             isMounted = false;
-            console.log("unmount", params?.parentId);
         };
     }, [params?.parentId]);
 

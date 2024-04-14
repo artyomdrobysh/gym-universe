@@ -12,8 +12,8 @@ export type TrainingExercise = {
 
 type Training = {
     id: number;
-    start: Date; // todo maybe define just time ?
-    finish: Date; // todo maybe define just time ?
+    start: string;
+    finish: string;
     exercises: TrainingExercise[];
 };
 

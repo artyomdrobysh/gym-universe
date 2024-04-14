@@ -1,56 +1,82 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { FlatList, View } from "react-native";
+import date from "date-and-time";
 
 import Loader from "@components/Loader";
 
 import Training from "@domain/Training";
 
-import { getAll } from "@mock/trainings";
+import { getAll, removeTraining } from "@mock/trainings";
+
+import TrainingDetails from "./TrainingDetails";
 
 export default function TrainingsHistory() {
     const [trainings, setTrainings] = useState<Training[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
+    const [trainingToRemove, setTrainingToRemove] = useState<number | null>(null);
 
     useEffect(() => {
         let isMounted: boolean = true;
+        setLoading(true);
 
-        getAll()
-            .then(res => {
-                if (isMounted) {
-                    setTrainings(res);
-                    setLoading(false);
-                }
-            })
-            .catch(err => {
-                if (isMounted) {
-                    setError(err.message);
-                    setLoading(false);
-                }
-            });
+        if (!trainingToRemove) {
+            getAll()
+                .then(res => {
+                    if (isMounted) {
+                        setTrainings(res);
+                        setLoading(false);
+                    }
+                })
+                .catch(err => {
+                    if (isMounted) {
+                        setError(err.message);
+                        setLoading(false);
+                    }
+                });
+        }
 
         return () => {
             isMounted = false;
         };
-    }, []);
+    }, [trainingToRemove]);
+
+    useEffect(() => {
+        let isMounted: boolean = true;
+        if (trainingToRemove) {
+            removeTraining(trainingToRemove).then(() => {
+                if (isMounted) {
+                    setTrainingToRemove(null);
+                }
+            }).catch(err => {
+                if (isMounted) {
+                    setError((err as Error).message);
+                    setTrainingToRemove(null);
+                }
+            });
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, [trainingToRemove]);
+
+    if (loading || trainingToRemove) {
+        return <Loader />;
+    }
 
     if (error) {
         throw new Error(error);
     }
 
-    if (loading) {
-        return <Loader />;
-    }
+    const sortedTrainings = trainings.sort((a, b) =>
+        new Date(b.start).getTime() - new Date(a.start).getTime());
 
     return (
         <View style={{ flex: 1 }}>
-            {trainings.map(({ id, start, finish, exercises }) => (
-                <React.Fragment key={id}>
-                    <Text>Start : {start.toString()}</Text>
-                    <Text>Finish : {finish.toString()}</Text>
-                    <Text>Exercises as JSON : {JSON.stringify(exercises)}</Text>
-                </React.Fragment>
-            ))}
+            <FlatList
+                data={sortedTrainings}
+                renderItem={({ item }) => <TrainingDetails {...item} onRemove={setTrainingToRemove} />}
+            />
         </View>
     );
 }

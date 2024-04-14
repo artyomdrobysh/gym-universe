@@ -46,3 +46,16 @@ export async function save(training: Omit<Training, "id">): Promise<number> {
         throw err;
     }
 }
+
+export async function removeTraining(id: number): Promise<void> {
+    try {
+        const value = await AsyncStorage.getItem(KEY);
+        if (value) {
+            const trainings: Training[] = JSON.parse(value);
+            await AsyncStorage.setItem(KEY, JSON.stringify(trainings.filter(t => t.id !== id)));
+        }
+    } catch (err) {
+        // todo think
+        throw err;
+    }
+}

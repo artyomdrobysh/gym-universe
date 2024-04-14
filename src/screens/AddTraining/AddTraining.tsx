@@ -76,8 +76,8 @@ export default function AddTraining({
 
     function finishTraining() {
         const trainingToCreate: Omit<Training, "id"> = {
-            start: start.current,
-            finish: new Date(),
+            start: start.current.toISOString(),
+            finish: new Date().toISOString(),
             exercises,
         };
         setSaveLoading(true);

@@ -54,8 +54,20 @@ import frenchBenchPressImg2 from "../assets/images/exercises/french-bench-press/
 import frenchBenchPressImg3 from "../assets/images/exercises/french-bench-press/img_3.png";
 
 import upperBlockRowsInFrontOfYouImg1 from "../assets/images/exercises/upper-block-rows-in-front-of-you/img_1.png";
-import upperBlockRowsInFrontOfYouImg2 from "../assets/images/exercises/upper-block-rows-in-front-of-you/img_3.png";
+import upperBlockRowsInFrontOfYouImg2 from "../assets/images/exercises/upper-block-rows-in-front-of-you/img_2.png";
 import upperBlockRowsInFrontOfYouImg3 from "../assets/images/exercises/upper-block-rows-in-front-of-you/img_3.png";
+
+import standingReverseBarbellCurlImg1 from "../assets/images/exercises/standing-reverse-barbell-curl/img_1.png";
+import standingReverseBarbellCurlImg2 from "../assets/images/exercises/standing-reverse-barbell-curl/img_2.png";
+import standingReverseBarbellCurlImg3 from "../assets/images/exercises/standing-reverse-barbell-curl/img_3.png";
+
+import dumbbellHammerCurlsImg1 from "../assets/images/exercises/dumbbell-hammer-curls/img_1.png";
+import dumbbellHammerCurlsImg2 from "../assets/images/exercises/dumbbell-hammer-curls/img_2.png";
+import dumbbellHammerCurlsImg3 from "../assets/images/exercises/dumbbell-hammer-curls/img_3.png";
+
+import dipsImg1 from "../assets/images/exercises/dips/img_1.png";
+import dipsImg2 from "../assets/images/exercises/dips/img_2.png";
+import dipsImg3 from "../assets/images/exercises/dips/img_3.png";
 
 const EXERCISES: Exercise[] = [
     {
@@ -242,6 +254,42 @@ const EXERCISES: Exercise[] = [
             mg => [10, 11, 12, 13, 17, 23].indexOf(mg.id) !== -1,
         ),
     },
+    {
+        id: 15,
+        name: "Обратное сгибание рук со штангой стоя",
+        repsType: RepsType.QUANTITY,
+        loadMeasureUnit: MeasureUnit.KILOGRAM,
+        images: [
+            { index: 1, content: standingReverseBarbellCurlImg1 },
+            { index: 2, content: standingReverseBarbellCurlImg2 },
+            { index: 3, content: standingReverseBarbellCurlImg3 },
+        ],
+        muscleGroups: MUSCLE_GROUPS.filter(mg => [16, 17, 23].indexOf(mg.id) !== -1),
+    },
+    {
+        id: 16,
+        name: "Сгибание рук с гантелями в стиле «Молот»",
+        repsType: RepsType.QUANTITY,
+        loadMeasureUnit: MeasureUnit.KILOGRAM,
+        images: [
+            { index: 1, content: dumbbellHammerCurlsImg1 },
+            { index: 2, content: dumbbellHammerCurlsImg2 },
+            { index: 3, content: dumbbellHammerCurlsImg3 },
+        ],
+        muscleGroups: MUSCLE_GROUPS.filter(mg => [16, 17, 23].indexOf(mg.id) !== -1),
+    },
+    {
+        id: 17,
+        name: "Отжимания на брусьях",
+        repsType: RepsType.QUANTITY,
+        loadMeasureUnit: MeasureUnit.KILOGRAM,
+        images: [
+            { index: 1, content: dipsImg1 },
+            { index: 2, content: dipsImg2 },
+            { index: 3, content: dipsImg3 },
+        ],
+        muscleGroups: MUSCLE_GROUPS.filter(mg => [3, 6, 18].indexOf(mg.id) !== -1),
+    },
 ];
 
 export function getAllByMuscleGroup(
@@ -262,4 +310,8 @@ export function getAllByMuscleGroup(
 
 export function getById(id: number): Promise<Exercise | null> {
     return new Promise(res => res(EXERCISES.find(e => e.id === id) ?? null));
+}
+
+export function getAllById(ids: number[]): Promise<Exercise[]> {
+    return new Promise(res => res(EXERCISES.filter(e => ids.indexOf(e.id) !== -1)));
 }
