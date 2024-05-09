@@ -66,7 +66,7 @@ export default function Exercises({
                 <ImageButton
                     key={id}
                     text={name}
-                    image={images.sort((a, b) => b.index - a.index)[0].content}
+                    image={images.sort((a, b) => a.index - b.index)[0].content}
                     onPress={() =>
                         navigation.navigate("DoExercise", { exerciseId: id })
                     }
